@@ -12,4 +12,5 @@ cadbuildr-stdlib = "^0.0.0.1"
 logo = "logo.png"
 
 [tool.cadbuildr.dependencies]
-stdlib = "https://github.com/cadbuildr/stdlib.git"
+cadbuildr-foundation = "^0.0.0.13"
+cadbuildr-stdlib = "^0.0.0.1"
