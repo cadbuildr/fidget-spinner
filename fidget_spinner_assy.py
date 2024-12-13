@@ -1,6 +1,18 @@
 # %%
-from foundation import *
+from cadbuildr.foundation import (
+    Part,
+    Assembly,
+    Sketch,
+    Point,
+    Extrusion,
+    Hole,
+    TFHelper,
+    show,
+)
 from math import cos, sin, pi
+
+from ball_bearing_part import BallBearing626D
+from spinner_holder_part import SpinnerHolder
 
 # Constants
 OUTER_DIAMETER = 19
@@ -11,37 +23,6 @@ CORNER_RADIUS = 20
 BEARING_TOLERANCE = 0.4
 BEARING_RADIUS = OUTER_DIAMETER / 2 + BEARING_TOLERANCE  # Radius for bearing holes
 HOLE_RADIUS_DISTANCE = 30  # Distance from the center to the hole radius
-
-
-class BallBearing626D(Part):
-    # Key dimensions of the 626D ball bearing
-    OUTER_DIAMETER = 19  # mm
-    INNER_DIAMETER = 6  # mm
-    HEIGHT = 6  # mm
-
-    def __init__(self):
-        # Create the outer cylinder
-        self.create_outer_cylinder()
-        # Cut the inner hole
-        self.create_inner_hole()
-
-    def create_outer_cylinder(self):
-        # Sketch on the XY plane
-        sketch = Sketch(self.xy())
-        # Create a circle with the outer diameter
-        outer_circle = Circle(center=sketch.origin, radius=self.OUTER_DIAMETER / 2)
-        # Extrude the circle to create a cylinder
-        extrusion = Extrusion(outer_circle, self.HEIGHT)
-        self.add_operation(extrusion)
-
-    def create_inner_hole(self):
-        # Sketch on the XY plane
-        sketch = Sketch(self.xy())
-        # Create a circle with the inner diameter
-        inner_circle = Circle(center=sketch.origin, radius=self.INNER_DIAMETER / 2)
-        # Extrude the circle to remove material, creating the hole
-        hole_extrusion = Extrusion(inner_circle, self.HEIGHT, cut=True)
-        self.add_operation(hole_extrusion)
 
 
 class RoundedTriangularBody(Part):
@@ -117,51 +98,6 @@ class RoundedTriangularBody(Part):
                 Hole(hole_point, self.BEARING_RADIUS, self.BODY_THICKNESS)
             )
             angle += 2 * pi / 3
-
-
-class SpinnerHolder(Part):
-    # Dimensions for the holder
-    FINGER_RADIUS = 10  # Radius for the finger grip
-    BEARING_LIP_RADIUS = 3.5  # Radius for the lip that sits around the ball bearing
-    BEARING_FIT_RADIUS = (
-        3 - 0.1
-    )  # Radius for the fitting to the inner diameter of the ball bearing (with clearance)
-    HOLDER_HEIGHT = 5  # Total height of the holder
-    BEARING_LIP_HEIGHT = 1  # Height of the lip around the bearing
-    FITTING_HEIGHT = 3  # Height of the fitting portion inside the ball bearing
-
-    def __init__(self):
-        axis, shape = self.get_sketch()
-        # Perform a lathe operation based on the sketch
-        self.add_operation(Lathe(shape, axis))
-
-    def get_sketch(self):
-        sketch = Sketch(self.xz())
-        pencil = sketch.pencil
-
-        # Start at the center of rotation
-        pencil.line_to(self.BEARING_FIT_RADIUS, 0)
-        # Define the fitting portion inside the ball bearing
-        pencil.line(0, self.FITTING_HEIGHT)
-
-        # # Transition to the lip for the ball bearing
-        pencil.line(self.BEARING_LIP_RADIUS - self.BEARING_FIT_RADIUS, 0)
-        pencil.line(0, self.BEARING_LIP_HEIGHT)
-
-        # # Extend to the finger grip
-        pencil.line(self.FINGER_RADIUS - self.BEARING_LIP_RADIUS, 0)
-        pencil.line(
-            0, self.HOLDER_HEIGHT - self.BEARING_LIP_HEIGHT - self.FITTING_HEIGHT
-        )
-
-        pencil.line(-self.FINGER_RADIUS, 0)
-
-        # Close the shape to the origin
-        shape = pencil.close()
-        # Create the axis of rotation for the lathe
-        axis = Axis(Line(Point(sketch, 0, 0), Point(sketch, 0, self.HOLDER_HEIGHT)))
-
-        return axis, shape
 
 
 class AssembledBearingBody(Assembly):
