@@ -11,8 +11,8 @@ from cadbuildr.foundation import (
 )
 from math import cos, sin, pi
 
-from ball_bearing import BallBearing626D
-from spinner_holder import SpinnerHolder
+from ball_bearing_part import BallBearing626D
+from spinner_holder_part import SpinnerHolder
 
 # Constants
 OUTER_DIAMETER = 19
