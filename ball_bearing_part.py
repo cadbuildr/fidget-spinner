@@ -1,4 +1,4 @@
-from cadbuildr.foundation import *
+from cadbuildr.foundation import Part, Sketch, Circle, Extrusion, show
 
 
 class BallBearing626D(Part):
@@ -30,3 +30,8 @@ class BallBearing626D(Part):
         # Extrude the circle to remove material, creating the hole
         hole_extrusion = Extrusion(inner_circle, self.HEIGHT, cut=True)
         self.add_operation(hole_extrusion)
+
+
+if __name__ == "__main__":
+    ball_bearing = BallBearing626D()
+    show(ball_bearing)
