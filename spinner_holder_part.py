@@ -1,3 +1,4 @@
+# %%
 from cadbuildr.foundation import Part, Lathe, Sketch, Axis, Line, Point, show
 
 
@@ -49,3 +50,5 @@ class SpinnerHolder(Part):
 if __name__ == "__main__":
     holder = SpinnerHolder()
     show(holder)
+
+# %%
