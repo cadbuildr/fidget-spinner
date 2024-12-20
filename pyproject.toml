@@ -1,16 +1,20 @@
 [tool.poetry]
-name = "fidget-spinner"
+name = "fidget"
 version = "0.1.0"
 description = "Fidget spinner"
+packages = [
+    { include = "fidget"}
+]
+authors = ["Clement Jambou <clement@cadbuildr.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-cadbuildr-foundation = "^0.0.0.13"
+cadbuildr-foundation = "^0.0.0.14"
 cadbuildr-stdlib = "^0.0.0.1"
 
 [tool.cadbuildr]
 logo = "logo.png"
 
 [tool.cadbuildr.dependencies]
-cadbuildr-foundation = "^0.0.0.13"
+cadbuildr-foundation = "^0.0.0.14"
 cadbuildr-stdlib = "^0.0.0.1"

@@ -8,11 +8,12 @@ from cadbuildr.foundation import (
     Hole,
     TFHelper,
     show,
+    CustomClosedShape,
 )
 from math import cos, sin, pi
 
-from ball_bearing_part import BallBearing626D
-from spinner_holder_part import SpinnerHolder
+from fidget.ball_bearing_part import BallBearing626D
+from fidget.spinner_holder_part import SpinnerHolder
 
 # Constants
 OUTER_DIAMETER = 19
@@ -61,10 +62,11 @@ class RoundedTriangularBody(Part):
                 sin(angle) * self.BEARING_CENTER_OFFSET
                 + cos(angle) * self.OUTSIDE_CIRCLE_RADIUS
             )
-            pencil.arc_to(end_x, end_y, -self.OUTSIDE_CIRCLE_RADIUS * 1.001)
+            pencil.arc_to(end_x, end_y, -self.OUTSIDE_CIRCLE_RADIUS * 1.05)
 
             angle += 2 * pi / 3
 
+            # if i < 2:
             # Inside arc
             end_x = (
                 cos(angle) * self.BEARING_CENTER_OFFSET
@@ -77,7 +79,7 @@ class RoundedTriangularBody(Part):
             pencil.arc_to(end_x, end_y, self.INSIDE_CIRCLE_RADIUS)
 
         # Close the shape
-        body_shape = pencil.close()
+        body_shape = CustomClosedShape(pencil.primitives)
 
         # Extrude the body
         self.add_operation(Extrusion(body_shape, self.BODY_THICKNESS))
