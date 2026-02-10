@@ -1,0 +1,1 @@
+def cube_vertices(side):\n    s = side / 2.0\n    return [(-s, -s, -s), (s, -s, -s), (s, s, -s), (-s, s, -s),\n            (-s, -s, s), (s, -s, s), (s, s, s), (-s, s, s)]\n\nv = cube_vertices(10.0)\nprint('cube_vertices_count', len(v))\n
