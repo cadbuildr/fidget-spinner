@@ -11,6 +11,7 @@ from cadbuildr.foundation import (
     CustomClosedShape,
 )
 from math import cos, sin, pi
+from typing import ClassVar
 
 from fidget.ball_bearing_part import BallBearing626D
 from fidget.spinner_holder_part import SpinnerHolder
@@ -27,13 +28,13 @@ HOLE_RADIUS_DISTANCE = 30  # Distance from the center to the hole radius
 
 
 class RoundedTriangularBody(Part):
-    INSIDE_CIRCLE_RADIUS = 40  # Radius of the circle defining the triangular vertices
-    OUTSIDE_CIRCLE_RADIUS = (
+    INSIDE_CIRCLE_RADIUS: ClassVar[float] = 40  # Radius of the circle defining the triangular vertices
+    OUTSIDE_CIRCLE_RADIUS: ClassVar[float] = (
         20  # Increased radius for the arcs forming the rounded triangles
     )
-    BODY_THICKNESS = 6  # Thickness of the 3D body
-    BEARING_RADIUS = 19 / 2  # Radius of the bearings (diameter divided by 2)
-    BEARING_CENTER_OFFSET = 50  # Offset for the center of the outside holes
+    BODY_THICKNESS: ClassVar[float] = 6  # Thickness of the 3D body
+    BEARING_RADIUS: ClassVar[float] = 19 / 2  # Radius of the bearings (diameter divided by 2)
+    BEARING_CENTER_OFFSET: ClassVar[float] = 50  # Offset for the center of the outside holes
 
     def __init__(self):
         self.create_body()
@@ -104,21 +105,21 @@ class RoundedTriangularBody(Part):
 
 class AssembledBearingBody(Assembly):
     def __init__(self):
-        # Create the body and paint it red
+        # Create the body and paint it light green
         body = RoundedTriangularBody()
-        body.paint("red")
+        body.paint("light_green")
         self.add_component(body)
 
         # Add the central bearing
         central_bearing = BallBearing626D()
-        central_bearing.paint("grey")
+        central_bearing.paint("dark_green")
         self.add_component(central_bearing)
         self.add_finger_holders(central_bearing, body)
 
         # Add the side bearings
         for i in range(3):
             bearing = BallBearing626D()  # Create a new instance for each bearing
-            bearing.paint("grey")
+            bearing.paint("dark_green")
             tf = TFHelper()
             angle = i * 2 * pi / 3  # Calculate the angle for each arm
             x_offset = cos(angle) * body.BEARING_CENTER_OFFSET

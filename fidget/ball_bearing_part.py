@@ -1,11 +1,13 @@
+from typing import ClassVar
+
 from cadbuildr.foundation import Part, Sketch, Circle, Extrusion, show
 
 
 class BallBearing626D(Part):
     # Key dimensions of the 626D ball bearing
-    OUTER_DIAMETER = 19  # mm
-    INNER_DIAMETER = 6  # mm
-    HEIGHT = 6  # mm
+    OUTER_DIAMETER: ClassVar[float] = 19  # mm
+    INNER_DIAMETER: ClassVar[float] = 6  # mm
+    HEIGHT: ClassVar[float] = 6  # mm
 
     def __init__(self):
         # Create the outer cylinder
