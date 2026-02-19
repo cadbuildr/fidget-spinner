@@ -1,17 +1,19 @@
 # %%
+from typing import ClassVar
+
 from cadbuildr.foundation import Part, Lathe, Sketch, Axis, Line, Point, show
 
 
 class SpinnerHolder(Part):
     # Dimensions for the holder
-    FINGER_RADIUS = 10  # Radius for the finger grip
-    BEARING_LIP_RADIUS = 3.5  # Radius for the lip that sits around the ball bearing
-    BEARING_FIT_RADIUS = (
+    FINGER_RADIUS: ClassVar[float] = 10  # Radius for the finger grip
+    BEARING_LIP_RADIUS: ClassVar[float] = 3.5  # Radius for the lip that sits around the ball bearing
+    BEARING_FIT_RADIUS: ClassVar[float] = (
         3 - 0.1
     )  # Radius for the fitting to the inner diameter of the ball bearing (with clearance)
-    HOLDER_HEIGHT = 5  # Total height of the holder
-    BEARING_LIP_HEIGHT = 1  # Height of the lip around the bearing
-    FITTING_HEIGHT = 3  # Height of the fitting portion inside the ball bearing
+    HOLDER_HEIGHT: ClassVar[float] = 5  # Total height of the holder
+    BEARING_LIP_HEIGHT: ClassVar[float] = 1  # Height of the lip around the bearing
+    FITTING_HEIGHT: ClassVar[float] = 3  # Height of the fitting portion inside the ball bearing
 
     def __init__(self):
         axis, shape = self.get_sketch()
