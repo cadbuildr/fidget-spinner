@@ -9,7 +9,7 @@ authors = ["Clement Jambou <clement@cadbuildr.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-cadbuildr-foundation = "^0.0.0.14"
+cadbuildr-foundation = "^0.2.8"
 cadbuildr-stdlib = "^0.0.0.1"
 
 [tool.cadbuildr]
